@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <script>
+      window.addEventListener('message', (event) => {
+        const { type, key, value } = event.data;
+        if (type === 'save') {
+          localStrage.setItem(key, JSON.stringify(value));
+          console.log('セーブ完了！);
+        } else if (type === 'load') {
+          const data = JSON.parse(localStrage.getItem(key));
+          event.source.postMessage({ type: 'load-result', value: data }, event.origin);
+        }
+      });
+    </script>
+  </body>
+</html>
